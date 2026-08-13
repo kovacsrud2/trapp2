@@ -1,0 +1,174 @@
+###
+//http://localhost:5000/api/auth/login
+@host = http://localhost
+@port = 8000
+@baseUrl = {{host}}:{{port}}
+
+###
+GET {{baseUrl}}/
+
+###
+GET {{baseUrl}}/kategoriak
+
+###
+GET {{baseUrl}}/videok
+
+###
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "kovacs.tanar@suli.hu",
+  "password": "Titok_12"
+}
+
+###
+//admin belépés
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@suli.hu",
+  "password": "Titok_12"
+}
+
+
+###
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "minta.diak@suli.hu",
+  "password": "Titok_12"
+}
+
+
+###
+//regisztráció
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "oktatasi_azonosito": "43333333333",
+  "name": "Új Tanár",
+  "email": "uj.tanar@suli.hu",
+  "password": "Titok_12"
+}
+
+###
+//események lekérése
+GET {{baseUrl}}/api/events
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZkNjAxYjRmLTk2MjktMTFmMS05ODA4LTY0NTEwNjUxMWZiMCIsInJvbGUiOiJ0ZWFjaGVyIiwib2t0YXRhc2lfYXpvbm9zaXRvIjoiMTExMTExMTExMTEiLCJpYXQiOjE3ODY2MTAzMjcsImV4cCI6MTc4NjYzOTEyN30.pTBUN39NYQdlRkGw2sT-oZbE1Qjz6F3ANSx1VTZhaYg
+
+###
+//új esemény létrehozása
+POST {{baseUrl}}/api/events
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZkNjAxYjRmLTk2MjktMTFmMS05ODA4LTY0NTEwNjUxMWZiMCIsInJvbGUiOiJ0ZWFjaGVyIiwib2t0YXRhc2lfYXpvbm9zaXRvIjoiMTExMTExMTExMTEiLCJpYXQiOjE3ODY2MTAzMjcsImV4cCI6MTc4NjYzOTEyN30.pTBUN39NYQdlRkGw2sT-oZbE1Qjz6F3ANSx1VTZhaYg
+
+{
+  
+    "title": "Fizika Érettségi Felkészítő",
+    "description": "Gyakorló feladatok és korábbi érettségi sorok megoldása közösen.",
+    "date_time": "2026-09-16T13:00:00.000Z",
+    "location": "214-es terem",
+    "max_participants": 20,
+    "teacher_name": "Kovács Tanár Úr"
+}
+
+
+###
+//feliratkozás eseményre
+POST {{baseUrl}}/api/events/6d6ca845-9629-11f1-9808-645106511fb0/register
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZkNjM1YzVkLTk2MjktMTFmMS05ODA4LTY0NTEwNjUxMWZiMCIsInJvbGUiOiJzdHVkZW50Iiwib2t0YXRhc2lfYXpvbm9zaXRvIjoiMjIyMjIyMjIyMjIiLCJpYXQiOjE3ODY1Mzk4MTcsImV4cCI6MTc4NjU2ODYxN30.LO1b6xBMb1UO09VT8OLmCmLSmoQHgcmIzGIG-UGAgNQ
+
+###
+//leiratkozás eseményről
+DELETE {{baseUrl}}/api/events/6d6ca845-9629-11f1-9808-645106511fb0/register
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZkNjM1YzVkLTk2MjktMTFmMS05ODA4LTY0NTEwNjUxMWZiMCIsInJvbGUiOiJzdHVkZW50Iiwib2t0YXRhc2lfYXpvbm9zaXRvIjoiMjIyMjIyMjIyMjIiLCJpYXQiOjE3ODY1MzY4ODcsImV4cCI6MTc4NjU2NTY4N30.w69PYSb0hr0IGg5EEcC_nJijp8Dy_C_AfZU_uW87FPM
+
+###
+//egy esemény résztvevői
+GET {{baseUrl}}/api/events/6d6ca845-9629-11f1-9808-645106511fb0/participants
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZkNjAxYjRmLTk2MjktMTFmMS05ODA4LTY0NTEwNjUxMWZiMCIsInJvbGUiOiJ0ZWFjaGVyIiwib2t0YXRhc2lfYXpvbm9zaXRvIjoiMTExMTExMTExMTEiLCJpYXQiOjE3ODY2MTAzMjcsImV4cCI6MTc4NjYzOTEyN30.pTBUN39NYQdlRkGw2sT-oZbE1Qjz6F3ANSx1VTZhaYg
+
+###
+//esemény módosítása
+PUT {{baseUrl}}/api/events/6d6ca845-9629-11f1-9808-645106511fb0
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZkNjAxYjRmLTk2MjktMTFmMS05ODA4LTY0NTEwNjUxMWZiMCIsInJvbGUiOiJ0ZWFjaGVyIiwib2t0YXRhc2lfYXpvbm9zaXRvIjoiMTExMTExMTExMTEiLCJpYXQiOjE3ODY2MTAzMjcsImV4cCI6MTc4NjYzOTEyN30.pTBUN39NYQdlRkGw2sT-oZbE1Qjz6F3ANSx1VTZhaYg
+
+{
+  "id": "6d6ca845-9629-11f1-9808-645106511fb0",
+    "title": "Matematika Érettségi Felkészítő",
+    "description": "Gyakorló feladatok és korábbi érettségi sorok megoldása közösen.",
+    "date_time": "2026-09-15T13:00:00.000Z",
+    "location": "205-ös terem",
+    "max_participants": 20,
+    "teacher_name": "Kovács Tanár Úr"
+}
+
+###
+//esemény törlése
+DELETE {{baseUrl}}/api/events/94a4d1ca-104e-42d3-bb9b-b2308b76a104
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZkNjAxYjRmLTk2MjktMTFmMS05ODA4LTY0NTEwNjUxMWZiMCIsInJvbGUiOiJ0ZWFjaGVyIiwib2t0YXRhc2lfYXpvbm9zaXRvIjoiMTExMTExMTExMTEiLCJpYXQiOjE3ODY2MTAzMjcsImV4cCI6MTc4NjYzOTEyN30.pTBUN39NYQdlRkGw2sT-oZbE1Qjz6F3ANSx1VTZhaYg
+
+###
+//user adatok lekérése
+GET {{baseUrl}}/api/users/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZkNjAxYjRmLTk2MjktMTFmMS05ODA4LTY0NTEwNjUxMWZiMCIsInJvbGUiOiJ0ZWFjaGVyIiwib2t0YXRhc2lfYXpvbm9zaXRvIjoiMTExMTExMTExMTEiLCJpYXQiOjE3ODY2MTAzMjcsImV4cCI6MTc4NjYzOTEyN30.pTBUN39NYQdlRkGw2sT-oZbE1Qjz6F3ANSx1VTZhaYg
+
+###
+//user adatok módosítása
+PUT {{baseUrl}}/api/users/profile
+Content-Type:  application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZkNjAxYjRmLTk2MjktMTFmMS05ODA4LTY0NTEwNjUxMWZiMCIsInJvbGUiOiJ0ZWFjaGVyIiwib2t0YXRhc2lfYXpvbm9zaXRvIjoiMTExMTExMTExMTEiLCJpYXQiOjE3ODY2MTAzMjcsImV4cCI6MTc4NjYzOTEyN30.pTBUN39NYQdlRkGw2sT-oZbE1Qjz6F3ANSx1VTZhaYg
+
+{
+  "name": "Kovács Rudolf Tanár Úr",
+  "email": "kovacs.tanar2@suli.hu"
+}
+
+###
+//felhasználó jelszó módosítás
+PUT {{baseUrl}}/api/users/password
+Content-Type:  application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZkNjAxYjRmLTk2MjktMTFmMS05ODA4LTY0NTEwNjUxMWZiMCIsInJvbGUiOiJ0ZWFjaGVyIiwib2t0YXRhc2lfYXpvbm9zaXRvIjoiMTExMTExMTExMTEiLCJpYXQiOjE3ODY2MTAzMjcsImV4cCI6MTc4NjYzOTEyN30.pTBUN39NYQdlRkGw2sT-oZbE1Qjz6F3ANSx1VTZhaYg
+
+{
+ "oldPassword": "Titok_13",
+ "newPassword": "Titok_12"
+}
+
+//admin token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZkNWI1ZjE4LTk2MjktMTFmMS05ODA4LTY0NTEwNjUxMWZiMCIsInJvbGUiOiJhZG1pbiIsIm9rdGF0YXNpX2F6b25vc2l0byI6IjAwMDAwMDAwMDAwIiwiaWF0IjoxNzg2NjE1MzM2LCJleHAiOjE3ODY2NDQxMzZ9.d014oyxD2A6AFm8CWfvCGRLU8Z1sgCZGZ6nqke71ctA
+
+###
+//admin lekéri a usereket
+GET {{baseUrl}}/api/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZkNWI1ZjE4LTk2MjktMTFmMS05ODA4LTY0NTEwNjUxMWZiMCIsInJvbGUiOiJhZG1pbiIsIm9rdGF0YXNpX2F6b25vc2l0byI6IjAwMDAwMDAwMDAwIiwiaWF0IjoxNzg2NjE1MzM2LCJleHAiOjE3ODY2NDQxMzZ9.d014oyxD2A6AFm8CWfvCGRLU8Z1sgCZGZ6nqke71ctA
+
+###
+//user szerep csere
+PUT {{baseUrl}}/api/users/aaf8d1e0-191d-44de-800e-81f980615145/role
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZkNWI1ZjE4LTk2MjktMTFmMS05ODA4LTY0NTEwNjUxMWZiMCIsInJvbGUiOiJhZG1pbiIsIm9rdGF0YXNpX2F6b25vc2l0byI6IjAwMDAwMDAwMDAwIiwiaWF0IjoxNzg2NjE1MzM2LCJleHAiOjE3ODY2NDQxMzZ9.d014oyxD2A6AFm8CWfvCGRLU8Z1sgCZGZ6nqke71ctA
+
+{
+  "role": "teacher"
+}
+
+###
+//oktatási azonosítók lekérdezése
+GET {{baseUrl}}/api/whitelist
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZkNWI1ZjE4LTk2MjktMTFmMS05ODA4LTY0NTEwNjUxMWZiMCIsInJvbGUiOiJhZG1pbiIsIm9rdGF0YXNpX2F6b25vc2l0byI6IjAwMDAwMDAwMDAwIiwiaWF0IjoxNzg2NjE1MzM2LCJleHAiOjE3ODY2NDQxMzZ9.d014oyxD2A6AFm8CWfvCGRLU8Z1sgCZGZ6nqke71ctA
+
+###
+//oktatási azonosító felvitele
+POST {{baseUrl}}/api/whitelist
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZkNWI1ZjE4LTk2MjktMTFmMS05ODA4LTY0NTEwNjUxMWZiMCIsInJvbGUiOiJhZG1pbiIsIm9rdGF0YXNpX2F6b25vc2l0byI6IjAwMDAwMDAwMDAwIiwiaWF0IjoxNzg2NjE1MzM2LCJleHAiOjE3ODY2NDQxMzZ9.d014oyxD2A6AFm8CWfvCGRLU8Z1sgCZGZ6nqke71ctA
+
+{
+  "oktatasi_azonosito": "79999999999"
+}
