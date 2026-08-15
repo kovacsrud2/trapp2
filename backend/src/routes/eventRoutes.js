@@ -5,7 +5,10 @@ const { verifyToken } = require('../middlewares/authMiddleware');
 const { authorizeRoles } = require('../middlewares/roleMiddleware');
 
 // GET /api/events - Bármilyen bejelentkezett felhasználó láthatja
-router.get('/', verifyToken, eventController.getAllEvents);
+//router.get('/', verifyToken, eventController.getAllEvents);
+
+//GET /api/events - Bárki láthatja az eseményeket, bejelentkezés nélkül.
+router.get('/', eventController.getAllEvents);
 
 // GET /api/events/:id/participants - ÚJ: Résztvevők lekérdezése (tanár/admin)
 router.get('/:id/participants', verifyToken, authorizeRoles('teacher', 'admin'), eventController.getEventParticipants);
