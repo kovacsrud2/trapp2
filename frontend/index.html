@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;700;800&amp;family=Inter:wght@400;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>frontend</title>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "outline": "#737686",
+                      "on-surface": "#191c1e",
+                      "surface-container-high": "#e6e8ea",
+                      "secondary-fixed": "#d5e3fc",
+                      "secondary-fixed-dim": "#b9c7df",
+                      "on-primary-fixed": "#00174b",
+                      "secondary": "#515f74",
+                      "background": "#f7f9fb",
+                      "inverse-on-surface": "#eff1f3",
+                      "primary-fixed-dim": "#b4c5ff",
+                      "surface-container": "#eceef0",
+                      "on-secondary-fixed": "#0d1c2e",
+                      "surface-tint": "#0053db",
+                      "on-error": "#ffffff",
+                      "surface-variant": "#e0e3e5",
+                      "inverse-primary": "#b4c5ff",
+                      "primary-fixed": "#dbe1ff",
+                      "on-tertiary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "primary": "#004ac6",
+                      "surface-dim": "#d8dadc",
+                      "on-primary-container": "#eeefff",
+                      "primary-container": "#2563eb",
+                      "secondary-container": "#d5e3fc",
+                      "on-secondary-fixed-variant": "#3a485b",
+                      "surface-container-highest": "#e0e3e5",
+                      "inverse-surface": "#2d3133",
+                      "on-secondary": "#ffffff",
+                      "tertiary": "#4d556b",
+                      "surface": "#f7f9fb",
+                      "on-primary-fixed-variant": "#003ea8",
+                      "on-background": "#191c1e",
+                      "error": "#ba1a1a",
+                      "on-primary": "#ffffff",
+                      "on-surface-variant": "#434655",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-container": "#656d84",
+                      "surface-bright": "#f7f9fb",
+                      "surface-container-low": "#f2f4f6",
+                      "on-secondary-container": "#57657a",
+                      "on-tertiary-fixed": "#131b2e",
+                      "tertiary-fixed": "#dae2fd",
+                      "on-tertiary-fixed-variant": "#3f465c",
+                      "outline-variant": "#c3c6d7",
+                      "on-tertiary-container": "#eef0ff",
+                      "on-error-container": "#93000a",
+                      "tertiary-fixed-dim": "#bec6e0"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "margin-desktop": "32px",
+                      "container-max": "1280px",
+                      "gutter": "16px",
+                      "margin-mobile": "16px"
+              },
+              "fontFamily": {
+                      "display-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "body-base": [
+                              "Inter"
+                      ],
+                      "title-md": [
+                              "Inter"
+                      ],
+                      "headline-lg-mobile": [
+                              "Hanken Grotesk"
+                      ],
+                      "label-technical": [
+                              "JetBrains Mono"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Hanken Grotesk"
+                      ]
+              },
+              "fontSize": {
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "body-base": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "title-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-technical": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+      body {
+          background-color: #f7f9fb;
+          color: #191c1e;
+          background-image: 
+              linear-gradient(#e0e3e5 1px, transparent 1px),
+              linear-gradient(90deg, #e0e3e5 1px, transparent 1px);
+          background-size: 20px 20px;
+          background-position: center center;
+      }
+      .technical-shadow {
+          box-shadow: 4px 4px 0px 0px #737686;
+      }
+    </style>
+
+
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
