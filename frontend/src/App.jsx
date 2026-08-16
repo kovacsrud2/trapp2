@@ -3,6 +3,7 @@ import Layout from './components/Layout';
 import Main from './components/Main';
 import { AuthProvider } from './context/AuthContext';
 import Login from './pages/Login';
+import Register from './pages/Register';
 
 function App() {
 
@@ -16,10 +17,9 @@ function App() {
           
           {/* A Main komponens az index útvonalon jelenik meg, az Outlet helyére */}
           <Route index element={<Main />} />
-          
-          {/* Példa a jövőbeli oldalakhoz: */}
-          {/* <Route path="login" element={<Login />} /> */}
+                    
           <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
           
         </Route>
       </Routes>
