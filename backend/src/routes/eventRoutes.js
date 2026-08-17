@@ -10,6 +10,10 @@ const { authorizeRoles } = require('../middlewares/roleMiddleware');
 //GET /api/events - Bárki láthatja az eseményeket, bejelentkezés nélkül.
 router.get('/', eventController.getAllEvents);
 
+// Végpont a saját események lekérésére
+// GET /api/events/my
+router.get('/my', verifyToken, authorizeRoles('student','teacher','admin'),eventController.getMyRegisteredEvents);
+
 // GET /api/events/:id/participants - ÚJ: Résztvevők lekérdezése (tanár/admin)
 router.get('/:id/participants', verifyToken, authorizeRoles('teacher', 'admin'), eventController.getEventParticipants);
 

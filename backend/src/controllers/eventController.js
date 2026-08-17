@@ -261,3 +261,36 @@ exports.deleteEvent = async (req, res) => {
     res.status(500).json({ message: 'Hiba történt az esemény törlésekor.' });
   }
 };
+
+//Itt már kívül volt az AI a kontextuson
+
+// Események lekérdezése, amikre a bejelentkezett diák jelentkezett
+exports.getMyRegisteredEvents = async (req, res) => {
+  try {
+    // Az auth middleware-ből érkező felhasználó azonosító (diák ID)
+    const studentId = req.user.id; 
+
+    // SQL lekérdezés: Összekapcsoljuk az eseményeket a jelentkezésekkel
+    const query = `
+      SELECT e.* 
+      FROM events e
+      INNER JOIN registrations r ON e.id = r.event_id
+      WHERE r.student_id = ?
+      ORDER BY e.date_time DESC;
+    `;
+
+    // Adatbázis hívás (MySQL mysql2 csomaggal vagy SQLite-tal)
+    // Ha db.query-t használsz mysql2-vel:
+    const [myEvents] = await db.query(query, [studentId]);
+
+    // Ha SQLite-ot használsz, valahogy így néz ki:
+    // const myEvents = await db.all(query, [studentId]);
+
+    res.status(200).json(myEvents);
+
+  } catch (error) {
+    console.error("Hiba a saját események lekérésekor:", error);
+    res.status(500).json({ error: "Szerverhiba történt az események betöltésekor." });
+  }
+};
+

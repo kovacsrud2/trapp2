@@ -61,6 +61,11 @@ GET {{baseUrl}}/api/events
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZkNjAxYjRmLTk2MjktMTFmMS05ODA4LTY0NTEwNjUxMWZiMCIsInJvbGUiOiJ0ZWFjaGVyIiwib2t0YXRhc2lfYXpvbm9zaXRvIjoiMTExMTExMTExMTEiLCJpYXQiOjE3ODY2MTAzMjcsImV4cCI6MTc4NjYzOTEyN30.pTBUN39NYQdlRkGw2sT-oZbE1Qjz6F3ANSx1VTZhaYg
 
 ###
+//egy tanuló/tanár eseményei
+GET {{baseUrl}}/api/events/my
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZkNjM1YzVkLTk2MjktMTFmMS05ODA4LTY0NTEwNjUxMWZiMCIsInJvbGUiOiJzdHVkZW50Iiwib2t0YXRhc2lfYXpvbm9zaXRvIjoiMjIyMjIyMjIyMjIiLCJpYXQiOjE3ODY5NjAzMDQsImV4cCI6MTc4Njk4OTEwNH0.Y8sHc53LEU3JnDZd_YdmKmwG7nxWXTmUKou3Zynm9ao
+
+###
 //új esemény létrehozása
 POST {{baseUrl}}/api/events
 Content-Type: application/json
