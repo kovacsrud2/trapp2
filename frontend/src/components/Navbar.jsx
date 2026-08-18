@@ -16,6 +16,11 @@ function Navbar() {
         <div className="flex items-center gap-4">
           {user ? (
             <>
+              {/* Ha diák, látszódjon az Eseményeim link */}
+              {user.role === 'student' && (
+              <Link  to="/my-events"  className="font-label-technical text-label-technical text-on-surface hover:text-primary transition-colors">
+               Eseményeim</Link>
+    )}
               <span className="font-label-technical text-secondary hidden md:block">
                 Szia, {user.role === 'teacher' ? 'Tanár' : 'Diák'}!
               </span>

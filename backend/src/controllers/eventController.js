@@ -265,14 +265,25 @@ exports.deleteEvent = async (req, res) => {
 //Itt már kívül volt az AI a kontextuson
 
 // Események lekérdezése, amikre a bejelentkezett diák jelentkezett
-exports.getMyRegisteredEvents = async (req, res) => {
+{/*exports.getMyRegisteredEvents = async (req, res) => {
   try {
     // Az auth middleware-ből érkező felhasználó azonosító (diák ID)
     const studentId = req.user.id; 
 
     // SQL lekérdezés: Összekapcsoljuk az eseményeket a jelentkezésekkel
     const query = `
-      SELECT e.* 
+      SELECT 
+        e.id AS event_id,
+        e.title,
+        e.description,
+        e.date_time,
+        e.location,
+        e.max_participants,
+        e.teacher_id,
+        e.created_at,
+        e.updated_at,
+        r.id AS registration_id,
+        r.registered_at
       FROM events e
       INNER JOIN registrations r ON e.id = r.event_id
       WHERE r.student_id = ?
@@ -282,6 +293,7 @@ exports.getMyRegisteredEvents = async (req, res) => {
     // Adatbázis hívás (MySQL mysql2 csomaggal vagy SQLite-tal)
     // Ha db.query-t használsz mysql2-vel:
     const [myEvents] = await db.query(query, [studentId]);
+    console.log("MySQL által visszakadott nyers adatok:", myEvents);
 
     // Ha SQLite-ot használsz, valahogy így néz ki:
     // const myEvents = await db.all(query, [studentId]);
@@ -292,5 +304,33 @@ exports.getMyRegisteredEvents = async (req, res) => {
     console.error("Hiba a saját események lekérésekor:", error);
     res.status(500).json({ error: "Szerverhiba történt az események betöltésekor." });
   }
-};
+};*/}
 
+exports.getMyRegisteredEvents = async (req, res) => {
+  try {
+    const studentId = req.user.id; 
+
+    const query = `
+      SELECT 
+        e.*,
+        r.id AS registration_id,
+        r.registered_at
+      FROM events e
+      INNER JOIN registrations r ON e.id = r.event_id
+      WHERE r.student_id = ?
+      ORDER BY e.date_time DESC;
+    `;
+
+    const result = await db.query(query, [studentId]);
+
+    // Biztosítjuk, hogy függetlenül a driver struktúrájától, tiszta tömböt kapjunk vissza
+    const myEvents = Array.isArray(result[0]) ? result[0] : (Array.isArray(result) ? result : []);
+
+    console.log("Sikeresen lekérdezett események száma:", myEvents.length);
+
+    res.status(200).json(myEvents);
+  } catch (error) {
+    console.error("Hiba a saját események lekérésekor:", error);
+    res.status(500).json({ error: "Szerverhiba történt az események betöltésekor." });
+  }
+};

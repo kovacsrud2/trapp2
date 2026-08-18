@@ -4,6 +4,7 @@ import Main from './components/Main';
 import { AuthProvider } from './context/AuthContext';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Esemenyeim from './pages/Esemenyeim';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
                     
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="my-events" element={<Esemenyeim />} />
           
         </Route>
       </Routes>
