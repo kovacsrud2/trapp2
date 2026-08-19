@@ -6,7 +6,7 @@ exports.getAllEvents = async (req, res) => {
   try {
     // Lekérjük az eseményeket, és hozzácsatoljuk a tanár nevét is
     const query = `
-      SELECT e.id, e.title, e.description, e.date_time, e.location, e.max_participants, u.name AS teacher_name 
+      SELECT e.id, e.title, e.description, e.date_time, e.location, e.max_participants, e.teacher_id, u.name AS teacher_name 
       FROM events e 
       JOIN users u ON e.teacher_id = u.id 
       ORDER BY e.date_time ASC

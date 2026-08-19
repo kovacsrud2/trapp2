@@ -1,18 +1,21 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import api from '../services/api'; // Fontos: importáljuk az api példányt
+import { useAuth } from '../context/useAuth';
+import api from '../services/api';
 
-function EsemenyCard({ esemeny }) {
+export function EsemenyCard({ 
+  esemeny, 
+  isRegistered = false, 
+  onRegisterToggle, 
+  onEdit, 
+  onDelete, 
+  onViewParticipants 
+}) {
   const { user } = useAuth();
   const navigate = useNavigate();
-  
-  // Állapotok a jelentkezéshez
-  // Később érdemes ezt a backendből venni: useState(esemeny.is_registered || false)
-  const [isRegistered, setIsRegistered] = useState(false); 
   const [isLoading, setIsLoading] = useState(false);
   
-  // Idő logika számítása
+  // Idő kalkuláció
   const eventDate = new Date(esemeny.date_time);
   const now = new Date();
   const eventEndDate = new Date(eventDate.getTime() + 3 * 60 * 60 * 1000); 
@@ -21,142 +24,220 @@ function EsemenyCard({ esemeny }) {
   const isFinished = now > eventEndDate;
   const isOngoing = !isFuture && !isFinished;
 
-  const formattedDate = eventDate.toLocaleString('hu-HU', {
+  const formattedDate = !isNaN(eventDate.getTime()) ? eventDate.toLocaleString('hu-HU', {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
     hour: '2-digit',
     minute: '2-digit'
-  });
+  }) : 'Dátum nem megadott';
 
-  const imageUrl = esemeny.image_url || "https://lh3.googleusercontent.com/aida-public/AB6AXuDrVNLcK82aASvChD0FRqXVOvxzCCnmznE4jNaFNop1gA8rh-4NO_dBEo7UCuLLkqpDg_8PmNxqTvcQ1OpMiE_B9ujKGvfEd3NaPrkhi-HvHIK7U3ryYicQlhWojkME1C6poA5cj1rLsnlSBTBJ37YhrkuV3Y-mNYgJjHJyTu-267CW1SV22Opo7JZF5RAL4wkMN_N2z-GCBanT4PfDX2fEkrlOgde8clsN7yT0UNO63hN8TlASkgLIpw";
+  const imageUrl = esemeny.image_url || "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80";
 
   let statusBadge = "HAMAROSAN";
-  let statusColor = "text-primary";
+  let statusColor = "text-primary border-primary";
   if (isOngoing) {
     statusBadge = "FOLYAMATBAN";
-    statusColor = "text-[#ba1a1a]";
+    statusColor = "text-error border-error";
   } else if (isFinished) {
     statusBadge = "BEFEJEZŐDÖTT";
-    statusColor = "text-secondary";
+    statusColor = "text-secondary border-outline-variant";
   }
-
-  // --- API HÍVÁSOK ---
 
   const handleRegister = async () => {
     setIsLoading(true);
     try {
-      // Feltételezem, hogy az api.js-ben a baseURL-ben benne van az '/api' rész.
-      // Ha nincs, akkor írd át: '/api/events/...' -ra
       await api.post(`/events/${esemeny.id}/register`);
-      setIsRegistered(true);
+      if (onRegisterToggle) {
+        onRegisterToggle(esemeny.id, true);
+      }
     } catch (error) {
       console.error("Hiba a jelentkezéskor", error);
-      alert("Nem sikerült jelentkezni az eseményre. Lehet, hogy már jelentkeztél?");
+      alert(error.response?.data?.message || "Nem sikerült jelentkezni az eseményre.");
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleUnregister = async () => {
+    if (!window.confirm("Biztosan le szeretnél iratkozni erről az eseményről?")) return;
     setIsLoading(true);
     try {
       await api.delete(`/events/${esemeny.id}/register`);
-      setIsRegistered(false);
+      if (onRegisterToggle) {
+        onRegisterToggle(esemeny.id, false);
+      }
     } catch (error) {
       console.error("Hiba a leiratkozáskor", error);
-      alert("Nem sikerült leiratkozni az eseményről.");
+      alert(error.response?.data?.message || "Nem sikerült leiratkozni az eseményről.");
     } finally {
       setIsLoading(false);
     }
   };
 
+  const handleDelete = async () => {
+    if (!window.confirm(`Biztosan törölni szeretnéd a(z) "${esemeny.title}" eseményt?`)) return;
+    try {
+      await api.delete(`/events/${esemeny.id}`);
+      if (onDelete) {
+        onDelete(esemeny.id);
+      }
+    } catch (err) {
+      console.error("Hiba az esemény törlésekor", err);
+      alert(err.response?.data?.message || "Nem sikerült törölni az eseményt.");
+    }
+  };
+
+  const canManage = user && (user.role === 'admin' || (user.role === 'teacher' && (!esemeny.teacher_id || esemeny.teacher_id === user.id)));
+
   return (
-    <article className="bg-surface border border-outline-variant rounded flex flex-col overflow-hidden hover:border-primary transition-colors group">
+    <article className="bg-surface border border-outline-variant rounded flex flex-col overflow-hidden hover:border-primary transition-all duration-300 group technical-shadow">
       
-      <div className="h-48 border-b border-outline-variant relative overflow-hidden bg-surface-container">
-        <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt={esemeny.title} src={imageUrl} />
-        <div className={`absolute top-2 left-2 bg-surface/90 backdrop-blur-sm px-2 py-1 border border-outline-variant rounded font-label-technical text-label-technical ${statusColor}`}>
+      <div className="h-44 border-b border-outline-variant relative overflow-hidden bg-surface-container">
+        <img 
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+          alt={esemeny.title} 
+          src={imageUrl} 
+        />
+        <div className={`absolute top-2.5 left-2.5 bg-surface/90 backdrop-blur-xs px-2.5 py-1 border rounded font-label-technical text-xs font-semibold ${statusColor}`}>
           {statusBadge}
         </div>
       </div>
       
-      <div className="p-6 flex flex-col flex-grow">
-        <div className="flex items-center gap-2 mb-3 text-secondary font-label-technical text-label-technical">
-          <span className="material-symbols-outlined text-[16px]">calendar_today</span>
-          <span>{formattedDate}</span>
-        </div>
+      <div className="p-5 flex flex-col flex-grow">
         
-        <h2 className="font-title-md text-title-md text-on-surface mb-3 group-hover:text-primary transition-colors">
+        {/* Időpont és helyszín adatok */}
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2 text-secondary font-label-technical text-xs">
+          <div className="flex items-center gap-1">
+            <span className="material-symbols-outlined text-[15px]">calendar_today</span>
+            <span>{formattedDate}</span>
+          </div>
+          {esemeny.location && (
+            <div className="flex items-center gap-1">
+              <span className="material-symbols-outlined text-[15px]">location_on</span>
+              <span>{esemeny.location}</span>
+            </div>
+          )}
+        </div>
+
+        {/* Esemény Címe */}
+        <h2 className="font-title-md text-title-md text-on-surface font-bold mb-2 group-hover:text-primary transition-colors line-clamp-1">
           {esemeny.title}
         </h2>
+
+        {/* Oktató neve & Létszámkorlát */}
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-3 text-secondary font-label-technical text-xs border-b border-outline-variant/50 pb-2">
+          {esemeny.teacher_name && (
+            <div className="flex items-center gap-1">
+              <span className="material-symbols-outlined text-[15px]">person</span>
+              <span>Oktató: {esemeny.teacher_name}</span>
+            </div>
+          )}
+          {esemeny.max_participants ? (
+            <div className="flex items-center gap-1">
+              <span className="material-symbols-outlined text-[15px]">group</span>
+              <span>Max: {esemeny.max_participants} fő</span>
+            </div>
+          ) : (
+            <div className="flex items-center gap-1">
+              <span className="material-symbols-outlined text-[15px]">all_inclusive</span>
+              <span>Korlátlan létszám</span>
+            </div>
+          )}
+        </div>
         
-        <p className="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-6 line-clamp-3">
-          {esemeny.description}
+        {/* Leírás */}
+        <p className="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-5 line-clamp-3">
+          {esemeny.description || 'Nincs részletes leírás megadva.'}
         </p>
         
-        {/* Jogosultság alapú gombok */}
-        <div className="mt-auto">
+        {/* Gombok szerepkörök szerint */}
+        <div className="mt-auto pt-3 border-t border-outline-variant/60">
           
-          {/* Vendég nézet (nincs bejelentkezve) */}
+          {/* Vendég nézet */}
           {!user && (
-             <button 
-               type="button"
-               onClick={() => navigate('/login')}
-               className="w-full py-2 bg-surface border border-outline-variant font-label-technical text-label-technical text-on-surface hover:bg-surface-container transition-colors rounded flex items-center justify-center gap-2 cursor-pointer"
-             >
-               Jelentkezéshez lépj be <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-             </button>
+            <button 
+              type="button"
+              onClick={() => navigate('/login')}
+              className="w-full py-2 bg-surface border border-outline-variant font-label-technical text-xs md:text-sm text-on-surface hover:bg-surface-container transition-colors rounded flex items-center justify-center gap-2 cursor-pointer"
+            >
+              Jelentkezéshez lépj be <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </button>
           )}
 
-          {/* Diák nézet (student) */}
+          {/* Diák nézet */}
           {user?.role === 'student' && (
-             <>
-               {!isFuture ? (
-                 <button disabled className="w-full py-2 font-label-technical text-label-technical rounded flex items-center justify-center gap-2 transition-colors bg-surface-container border border-outline-variant text-secondary opacity-50 cursor-not-allowed">
-                   Jelentkezés lezárult
-                 </button>
-               ) : isRegistered ? (
-                 <button 
-                   onClick={handleUnregister}
-                   disabled={isLoading}
-                   className={`w-full py-2 font-label-technical text-label-technical rounded flex items-center justify-center gap-2 transition-colors border border-[#ba1a1a] text-[#ba1a1a] hover:bg-error-container hover:text-on-error-container ${isLoading ? 'opacity-50 cursor-wait' : ''}`}
-                 >
-                   {isLoading ? 'Feldolgozás...' : 'Leiratkozás'}
-                 </button>
-               ) : (
-                 <button 
-                   onClick={handleRegister}
-                   disabled={isLoading}
-                   className={`w-full py-2 font-label-technical text-label-technical rounded flex items-center justify-center gap-2 transition-colors bg-primary text-on-primary hover:bg-primary-fixed-variant ${isLoading ? 'opacity-50 cursor-wait' : ''}`}
-                 >
-                   {isLoading ? 'Feldolgozás...' : 'Jelentkezés'}
-                 </button>
-               )}
-             </>
+            <>
+              {isFinished ? (
+                <button disabled className="w-full py-2 font-label-technical text-xs md:text-sm rounded flex items-center justify-center gap-2 bg-surface-container border border-outline-variant text-secondary opacity-60 cursor-not-allowed">
+                  Az esemény lezárult
+                </button>
+              ) : isRegistered ? (
+                <button 
+                  onClick={handleUnregister}
+                  disabled={isLoading}
+                  className={`w-full py-2 font-label-technical text-xs md:text-sm rounded flex items-center justify-center gap-2 transition-colors border border-error text-error hover:bg-error-container hover:text-on-error-container cursor-pointer ${isLoading ? 'opacity-50 cursor-wait' : ''}`}
+                >
+                  <span className="material-symbols-outlined text-[16px]">cancel</span>
+                  {isLoading ? 'Feldolgozás...' : 'Leiratkozás'}
+                </button>
+              ) : (
+                <button 
+                  onClick={handleRegister}
+                  disabled={isLoading}
+                  className={`w-full py-2 font-label-technical text-xs md:text-sm rounded flex items-center justify-center gap-2 transition-colors bg-primary text-on-primary hover:bg-primary-fixed-variant shadow-xs cursor-pointer ${isLoading ? 'opacity-50 cursor-wait' : ''}`}
+                >
+                  <span className="material-symbols-outlined text-[16px]">how_to_reg</span>
+                  {isLoading ? 'Feldolgozás...' : 'Jelentkezés'}
+                </button>
+              )}
+            </>
           )}
 
-          {/* Tanár nézet (tanar) */}
-          {user?.role === 'teacher' && (
-             <button 
-               disabled={isFinished}
-               className={`w-full py-2 font-label-technical text-label-technical rounded flex items-center justify-center gap-2 transition-colors ${
-                 !isFinished 
-                 ? "bg-surface border border-outline-variant text-on-surface hover:bg-outline-variant" 
-                 : "bg-surface-container border border-outline-variant text-secondary opacity-50 cursor-not-allowed"
-               }`}
-             >
-               <span className="material-symbols-outlined text-[16px]">
-                 {isFinished ? 'lock' : 'edit'}
-               </span>
-               {isFinished ? 'Lezárt esemény' : 'Szerkesztés'}
-             </button>
+          {/* Tanár & Admin nézet */}
+          {(user?.role === 'teacher' || user?.role === 'admin') && (
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-2">
+                <button 
+                  type="button"
+                  onClick={() => onViewParticipants && onViewParticipants(esemeny)}
+                  className="flex-1 py-1.5 px-2 font-label-technical text-xs rounded flex items-center justify-center gap-1.5 transition-colors bg-surface-container hover:bg-surface-container-high border border-outline-variant text-on-surface cursor-pointer"
+                  title="Jelentkezett diákok listája"
+                >
+                  <span className="material-symbols-outlined text-[15px]">people</span>
+                  <span>Résztvevők</span>
+                </button>
+
+                {canManage && (
+                  <>
+                    <button 
+                      type="button"
+                      onClick={() => onEdit && onEdit(esemeny)}
+                      className="py-1.5 px-3 font-label-technical text-xs rounded flex items-center justify-center gap-1 transition-colors bg-surface border border-outline-variant text-on-surface hover:bg-surface-container cursor-pointer"
+                      title="Esemény szerkesztése"
+                    >
+                      <span className="material-symbols-outlined text-[15px]">edit</span>
+                      <span>Szerkesztés</span>
+                    </button>
+
+                    <button 
+                      type="button"
+                      onClick={handleDelete}
+                      className="py-1.5 px-2.5 font-label-technical text-xs rounded flex items-center justify-center transition-colors border border-outline-variant text-error hover:bg-error-container hover:border-error cursor-pointer"
+                      title="Esemény törlése"
+                    >
+                      <span className="material-symbols-outlined text-[15px]">delete</span>
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
           )}
 
         </div>
       </div>
     </article>
-  )
+  );
 }
 
 export default EsemenyCard;
