@@ -5,17 +5,13 @@ const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000/api',
 });
 
-// Interceptor: Minden kiküldött kérés előtt lefut
+// Request Interceptor: Token csatolása
 api.interceptors.request.use(
   (config) => {
-    // Megnézzük, van-e elmentett tokenünk
     const token = localStorage.getItem('token');
-    
-    // Ha van, hozzáfűzzük az Authorization fejlécet
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
-    
     return config;
   },
   (error) => {
@@ -23,6 +19,23 @@ api.interceptors.request.use(
   }
 );
 
-// Később ide jöhet egy response interceptor is, ami pl. kijelentkeztet, ha lejárt a token (401-es hiba)
+// Response Interceptor: 401 kezelése (lejárt vagy érvénytelen token)
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      // Csak akkor töröljük és irányítunk át, ha nem a bejelentkezési végpont dobott 401-et
+      const isAuthLoginRequest = error.config?.url?.includes('/auth/login');
+      if (!isAuthLoginRequest) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        if (window.location.pathname !== '/login') {
+          window.location.href = '/login';
+        }
+      }
+    }
+    return Promise.reject(error);
+  }
+);
 
 export default api;

@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
   res.json({ message: 'Az Eseménykezelő API működik!' });
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`A szerver fut a http://localhost:${PORT} címen`);
 });
