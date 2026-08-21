@@ -14,7 +14,7 @@ export function Navbar() {
         return <span className="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded text-[11px] font-label-technical uppercase">Oktató</span>;
       case 'student':
       default:
-        return <span className="bg-surface-container-high text-secondary px-2 py-0.5 rounded text-[11px] font-label-technical uppercase">Diák</span>;
+        return <span className="bg-surface-container-high text-blue-800 px-2 py-0.5 rounded text-[11px] font-label-technical uppercase">Diák</span>;
     }
   };
 

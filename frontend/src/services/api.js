@@ -29,8 +29,9 @@ api.interceptors.response.use(
       if (!isAuthLoginRequest) {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        if (window.location.pathname !== '/login') {
-          window.location.href = '/login';
+        const loginPath = import.meta.env.BASE_URL ? `${import.meta.env.BASE_URL}login`.replace(/\/+/g, '/') : '/trapp/login';
+        if (!window.location.pathname.includes('/login')) {
+          window.location.href = loginPath;
         }
       }
     }

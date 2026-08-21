@@ -10,7 +10,7 @@ import AdminDashboard from './pages/AdminDashboard';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/trapp">
       <AuthProvider>
         <Routes>
           <Route path="/" element={<Layout />}>

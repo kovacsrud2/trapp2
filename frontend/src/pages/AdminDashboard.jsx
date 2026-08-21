@@ -98,7 +98,7 @@ export function AdminDashboard() {
         <h1 className="font-display-lg text-headline-lg md:text-display-lg text-on-surface font-extrabold mb-1">
           Adminisztrációs Vezérlőpult
         </h1>
-        <p className="font-body-base text-body-base text-secondary">
+        <p className="font-body-base text-body-base text-blue-800">
           Felhasználók, jogosultságok és regisztrációhoz engedélyezett oktatási azonosítók kezelése.
         </p>
       </div>
@@ -111,7 +111,7 @@ export function AdminDashboard() {
           className={`pb-3 font-label-technical text-sm font-semibold border-b-2 transition-colors cursor-pointer flex items-center gap-2 ${
             activeTab === 'users'
               ? 'border-primary text-primary'
-              : 'border-transparent text-secondary hover:text-on-surface'
+              : 'border-transparent text-blue-800 hover:text-on-surface'
           }`}
         >
           <span className="material-symbols-outlined text-[18px]">manage_accounts</span>
@@ -124,7 +124,7 @@ export function AdminDashboard() {
           className={`pb-3 font-label-technical text-sm font-semibold border-b-2 transition-colors cursor-pointer flex items-center gap-2 ${
             activeTab === 'whitelist'
               ? 'border-primary text-primary'
-              : 'border-transparent text-secondary hover:text-on-surface'
+              : 'border-transparent text-blue-800 hover:text-on-surface'
           }`}
         >
           <span className="material-symbols-outlined text-[18px]">verified_user</span>
@@ -142,7 +142,7 @@ export function AdminDashboard() {
             <button
               type="button"
               onClick={fetchUsers}
-              className="p-2 bg-surface hover:bg-surface-container border border-outline-variant rounded text-secondary hover:text-primary transition-colors cursor-pointer flex items-center"
+              className="p-2 bg-surface hover:bg-surface-container border border-outline-variant rounded text-blue-800 hover:text-primary transition-colors cursor-pointer flex items-center"
               title="Lista frissítése"
             >
               <span className={`material-symbols-outlined text-[20px] ${loadingUsers ? 'animate-spin' : ''}`}>
@@ -152,7 +152,7 @@ export function AdminDashboard() {
           </div>
 
           {loadingUsers ? (
-            <div className="py-12 text-center text-secondary font-body-base">
+            <div className="py-12 text-center text-blue-800 font-body-base">
               Felhasználók betöltése...
             </div>
           ) : userError ? (
@@ -163,7 +163,7 @@ export function AdminDashboard() {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm font-body-base border-collapse">
                 <thead>
-                  <tr className="border-b border-outline-variant font-label-technical text-xs text-secondary bg-surface-container">
+                  <tr className="border-b border-outline-variant font-label-technical text-xs text-blue-800 bg-surface-container">
                     <th className="py-3 px-4">NÉV</th>
                     <th className="py-3 px-4">EMAIL</th>
                     <th className="py-3 px-4">OKTATÁSI AZONOSÍTÓ</th>
@@ -175,8 +175,8 @@ export function AdminDashboard() {
                   {users.map((u) => (
                     <tr key={u.id} className="hover:bg-surface-container/50 transition-colors">
                       <td className="py-3 px-4 font-semibold text-on-surface">{u.name}</td>
-                      <td className="py-3 px-4 text-secondary">{u.email}</td>
-                      <td className="py-3 px-4 font-label-technical text-xs text-secondary tracking-wider">
+                      <td className="py-3 px-4 text-blue-800">{u.email}</td>
+                      <td className="py-3 px-4 font-label-technical text-xs text-blue-800 tracking-wider">
                         {u.oktatasi_azonosito}
                       </td>
                       <td className="py-3 px-4">
@@ -190,7 +190,7 @@ export function AdminDashboard() {
                           <option value="admin">Adminisztrátor (admin)</option>
                         </select>
                       </td>
-                      <td className="py-3 px-4 font-label-technical text-xs text-secondary">
+                      <td className="py-3 px-4 font-label-technical text-xs text-blue-800">
                         {u.created_at ? new Date(u.created_at).toLocaleDateString('hu-HU') : '-'}
                       </td>
                     </tr>
@@ -210,7 +210,7 @@ export function AdminDashboard() {
               <h2 className="font-title-md font-bold text-on-surface text-lg">
                 Engedélyezett Oktatási Azonosítók (Whitelist)
               </h2>
-              <p className="font-body-sm text-secondary text-xs mt-0.5">
+              <p className="font-body-sm text-blue-800 text-xs mt-0.5">
                 Csak azok a személyek regisztrálhatnak, akiknek a 11 jegyű azonosítója szerepel ebben a listában.
               </p>
             </div>
@@ -238,7 +238,7 @@ export function AdminDashboard() {
           </div>
 
           {loadingWhitelist ? (
-            <div className="py-12 text-center text-secondary font-body-base">
+            <div className="py-12 text-center text-blue-800 font-body-base">
               Whitelist betöltése...
             </div>
           ) : whitelistError ? (
@@ -253,7 +253,7 @@ export function AdminDashboard() {
                   className="p-3 bg-surface-container border border-outline-variant rounded flex items-center justify-between group hover:border-primary transition-colors"
                 >
                   <div className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-secondary text-[18px]">
+                    <span className="material-symbols-outlined text-blue-800 text-[18px]">
                       badge
                     </span>
                     <span className="font-label-technical text-sm font-semibold tracking-wider text-on-surface">
@@ -263,7 +263,7 @@ export function AdminDashboard() {
                   <button
                     type="button"
                     onClick={() => handleDeleteWhitelistId(item.oktatasi_azonosito)}
-                    className="text-secondary hover:text-error transition-colors p-1 cursor-pointer"
+                    className="text-blue-800 hover:text-error transition-colors p-1 cursor-pointer"
                     title="Törlés"
                   >
                     <span className="material-symbols-outlined text-[18px]">delete</span>

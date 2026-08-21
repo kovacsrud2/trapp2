@@ -46,7 +46,7 @@ export function Esemenyeim() {
           <h1 className="font-display-lg text-headline-lg md:text-display-lg text-on-surface font-extrabold mb-2 tracking-tight">
             Eseményeim
           </h1>
-          <p className="font-body-base text-body-base text-secondary">
+          <p className="font-body-base text-body-base text-blue-800">
             Azok a rendezvények, szakmai napok és versenyek, amelyekre jelentkeztél.
           </p>
         </div>
@@ -65,7 +65,7 @@ export function Esemenyeim() {
           <span className="material-symbols-outlined text-4xl text-primary animate-spin mb-3">
             progress_activity
           </span>
-          <p className="font-body-base text-secondary">Feliratkozások betöltése...</p>
+          <p className="font-body-base text-blue-800">Feliratkozások betöltése...</p>
         </div>
       ) : errorMsg ? (
         <div className="bg-error-container text-on-error-container p-4 rounded text-center font-body-base border border-error">
@@ -81,13 +81,13 @@ export function Esemenyeim() {
         </div>
       ) : esemenyek.length === 0 ? (
         <div className="bg-surface border border-outline-variant rounded p-12 text-center technical-shadow">
-          <span className="material-symbols-outlined text-5xl text-secondary mb-3">
+          <span className="material-symbols-outlined text-5xl text-blue-800 mb-3">
             assignment_late
           </span>
           <h3 className="font-title-md text-on-surface font-bold mb-1">
             Még nem jelentkeztél egyetlen eseményre sem
           </h3>
-          <p className="font-body-sm text-secondary max-w-md mx-auto mb-6">
+          <p className="font-body-sm text-blue-800 max-w-md mx-auto mb-6">
             Böngéssz a közelgő rendezvények, felkészítők és szakkörök között, és iratkozz fel a téged érdeklő alkalmakra!
           </p>
           <Link

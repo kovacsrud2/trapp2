@@ -57,7 +57,7 @@ export function Register() {
           <h2 className="font-display-lg text-headline-lg text-on-surface font-bold tracking-tight">
             Diák Regisztráció
           </h2>
-          <p className="font-body-sm text-secondary mt-1">
+          <p className="font-body-sm text-blue-800 mt-1">
             Hozd létre tanulói fiókodat az érvényes 11 jegyű oktatási azonosítóddal.
           </p>
         </div>
@@ -76,7 +76,7 @@ export function Register() {
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
-            <label className="block font-label-technical text-xs font-semibold text-secondary mb-1.5 uppercase">
+            <label className="block font-label-technical text-xs font-semibold text-blue-800 mb-1.5 uppercase">
               Oktatási azonosító (11 számjegy) *
             </label>
             <input 
@@ -91,7 +91,7 @@ export function Register() {
           </div>
 
           <div>
-            <label className="block font-label-technical text-xs font-semibold text-secondary mb-1.5 uppercase">
+            <label className="block font-label-technical text-xs font-semibold text-blue-800 mb-1.5 uppercase">
               Teljes Név *
             </label>
             <input 
@@ -105,7 +105,7 @@ export function Register() {
           </div>
 
           <div>
-            <label className="block font-label-technical text-xs font-semibold text-secondary mb-1.5 uppercase">
+            <label className="block font-label-technical text-xs font-semibold text-blue-800 mb-1.5 uppercase">
               Email cím *
             </label>
             <input 
@@ -119,7 +119,7 @@ export function Register() {
           </div>
           
           <div>
-            <label className="block font-label-technical text-xs font-semibold text-secondary mb-1.5 uppercase">
+            <label className="block font-label-technical text-xs font-semibold text-blue-800 mb-1.5 uppercase">
               Jelszó (min. 6 karakter) *
             </label>
             <input 
@@ -143,7 +143,7 @@ export function Register() {
         </form>
 
         <div className="mt-6 pt-4 border-t border-outline-variant text-center">
-          <p className="font-body-sm text-sm text-secondary">
+          <p className="font-body-sm text-sm text-blue-800">
             Már van regisztrált fiókod?{' '}
             <Link to="/login" className="text-primary font-semibold hover:underline">
               Bejelentkezés

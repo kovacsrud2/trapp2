@@ -28,7 +28,7 @@ export function Login() {
           <h2 className="font-display-lg text-headline-lg text-on-surface font-bold tracking-tight">
             Bejelentkezés
           </h2>
-          <p className="font-body-sm text-secondary mt-1">
+          <p className="font-body-sm text-blue-800 mt-1">
             Lépj be a rendezvények és workshopok kezeléséhez
           </p>
         </div>
@@ -41,7 +41,7 @@ export function Login() {
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
-            <label className="block font-label-technical text-xs font-semibold text-secondary mb-1.5 uppercase">
+            <label className="block font-label-technical text-xs font-semibold text-blue-800 mb-1.5 uppercase">
               Email cím
             </label>
             <input 
@@ -55,7 +55,7 @@ export function Login() {
           </div>
           
           <div>
-            <label className="block font-label-technical text-xs font-semibold text-secondary mb-1.5 uppercase">
+            <label className="block font-label-technical text-xs font-semibold text-blue-800 mb-1.5 uppercase">
               Jelszó
             </label>
             <input 
@@ -78,7 +78,7 @@ export function Login() {
         </form>
 
         <div className="mt-6 pt-4 border-t border-outline-variant text-center">
-          <p className="font-body-sm text-sm text-secondary">
+          <p className="font-body-sm text-sm text-blue-800">
             Még nincs fiókod?{' '}
             <Link to="/register" className="text-primary font-semibold hover:underline">
               Regisztráció diákoknak

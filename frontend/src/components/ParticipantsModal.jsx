@@ -36,14 +36,14 @@ export function ParticipantsModal({ isOpen, onClose, event }) {
             <h2 className="font-display-lg text-headline-lg text-on-surface text-lg font-bold">
               Jelentkezett tanulók
             </h2>
-            <p className="font-body-sm text-body-sm text-secondary truncate max-w-sm">
+            <p className="font-body-sm text-body-sm text-blue-800 truncate max-w-sm">
               {event.title}
             </p>
           </div>
           <button
             onClick={onClose}
             type="button"
-            className="text-secondary hover:text-on-surface cursor-pointer p-1"
+            className="text-blue-800 hover:text-on-surface cursor-pointer p-1"
           >
             <span className="material-symbols-outlined">close</span>
           </button>
@@ -51,7 +51,7 @@ export function ParticipantsModal({ isOpen, onClose, event }) {
 
         <div className="flex-grow overflow-y-auto my-2">
           {loading ? (
-            <div className="py-8 text-center font-body-base text-secondary">
+            <div className="py-8 text-center font-body-base text-blue-800">
               Résztvevők betöltése...
             </div>
           ) : error ? (
@@ -59,12 +59,12 @@ export function ParticipantsModal({ isOpen, onClose, event }) {
               {error}
             </div>
           ) : participants.length === 0 ? (
-            <div className="py-8 text-center font-body-base text-secondary">
+            <div className="py-8 text-center font-body-base text-blue-800">
               Még egyetlen diák sem jelentkezett erre az eseményre.
             </div>
           ) : (
             <div className="flex flex-col divide-y divide-outline-variant">
-              <div className="py-2 text-xs font-label-technical text-secondary flex justify-between font-bold">
+              <div className="py-2 text-xs font-label-technical text-blue-800 flex justify-between font-bold">
                 <span>NÉV / AZONOSÍTÓ</span>
                 <span>JELENTKEZÉS IDEJE</span>
               </div>
@@ -72,9 +72,9 @@ export function ParticipantsModal({ isOpen, onClose, event }) {
                 <div key={idx} className="py-3 flex items-center justify-between">
                   <div>
                     <div className="font-title-md font-medium text-on-surface text-sm">{p.name}</div>
-                    <div className="font-label-technical text-xs text-secondary tracking-wider">{p.oktatasi_azonosito}</div>
+                    <div className="font-label-technical text-xs text-blue-800 tracking-wider">{p.oktatasi_azonosito}</div>
                   </div>
-                  <div className="font-label-technical text-xs text-secondary text-right">
+                  <div className="font-label-technical text-xs text-blue-800 text-right">
                     {p.registered_at ? new Date(p.registered_at).toLocaleString('hu-HU', {
                       month: '2-digit',
                       day: '2-digit',
@@ -89,7 +89,7 @@ export function ParticipantsModal({ isOpen, onClose, event }) {
         </div>
 
         <div className="flex justify-between items-center pt-4 border-t border-outline-variant mt-2">
-          <span className="font-label-technical text-xs text-secondary">
+          <span className="font-label-technical text-xs text-blue-800">
             Összesen: <span className="font-bold text-on-surface">{participants.length}</span> {event.max_participants ? `/ ${event.max_participants}` : ''} fő
           </span>
           <button

@@ -78,7 +78,7 @@ export function EventModal({ isOpen, onClose, event, onSaved }) {
           <button
             onClick={onClose}
             type="button"
-            className="text-secondary hover:text-on-surface cursor-pointer"
+            className="text-blue-800 hover:text-on-surface cursor-pointer"
           >
             <span className="material-symbols-outlined">close</span>
           </button>
@@ -92,7 +92,7 @@ export function EventModal({ isOpen, onClose, event, onSaved }) {
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
-            <label className="block font-label-technical text-label-technical text-secondary mb-1">
+            <label className="block font-label-technical text-label-technical text-blue-800 mb-1">
               Esemény megnevezése *
             </label>
             <input
@@ -106,7 +106,7 @@ export function EventModal({ isOpen, onClose, event, onSaved }) {
           </div>
 
           <div>
-            <label className="block font-label-technical text-label-technical text-secondary mb-1">
+            <label className="block font-label-technical text-label-technical text-blue-800 mb-1">
               Időpont és kezdés *
             </label>
             <input
@@ -120,7 +120,7 @@ export function EventModal({ isOpen, onClose, event, onSaved }) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block font-label-technical text-label-technical text-secondary mb-1">
+              <label className="block font-label-technical text-label-technical text-blue-800 mb-1">
                 Helyszín / Terem
               </label>
               <input
@@ -133,7 +133,7 @@ export function EventModal({ isOpen, onClose, event, onSaved }) {
             </div>
 
             <div>
-              <label className="block font-label-technical text-label-technical text-secondary mb-1">
+              <label className="block font-label-technical text-label-technical text-blue-800 mb-1">
                 Max. résztvevők száma
               </label>
               <input
@@ -148,7 +148,7 @@ export function EventModal({ isOpen, onClose, event, onSaved }) {
           </div>
 
           <div>
-            <label className="block font-label-technical text-label-technical text-secondary mb-1">
+            <label className="block font-label-technical text-label-technical text-blue-800 mb-1">
               Leírás
             </label>
             <textarea

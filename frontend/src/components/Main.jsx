@@ -113,7 +113,7 @@ export function Main() {
           <h1 className="font-display-lg text-headline-lg md:text-display-lg text-on-surface font-extrabold mb-2 tracking-tight">
             {user?.role === 'teacher' && filterTeacherOnly ? 'Saját Eseményeim' : 'Közelgő Események'}
           </h1>
-          <p className="font-body-base text-body-base text-secondary">
+          <p className="font-body-base text-body-base text-blue-800">
             Rendszeres szakmai napok, versenyek, felkészítők és workshopok a Trefortban.
           </p>
         </div>
@@ -136,7 +136,7 @@ export function Main() {
         
         {/* Keresőmező */}
         <div className="relative flex-grow max-w-md">
-          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[20px]">
+          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-blue-800 text-[20px]">
             search
           </span>
           <input
@@ -150,7 +150,7 @@ export function Main() {
             <button
               type="button"
               onClick={() => setSearchQuery('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-secondary hover:text-on-surface cursor-pointer"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-blue-800 hover:text-on-surface cursor-pointer"
             >
               <span className="material-symbols-outlined text-[16px]">close</span>
             </button>
@@ -165,7 +165,7 @@ export function Main() {
                 type="button"
                 onClick={() => setFilterTeacherOnly(false)}
                 className={`px-3 py-1.5 rounded font-label-technical text-xs transition-colors cursor-pointer ${
-                  !filterTeacherOnly ? 'bg-surface text-primary font-bold shadow-xs' : 'text-secondary hover:text-on-surface'
+                  !filterTeacherOnly ? 'bg-surface text-primary font-bold shadow-xs' : 'text-blue-800 hover:text-on-surface'
                 }`}
               >
                 Minden esemény
@@ -174,7 +174,7 @@ export function Main() {
                 type="button"
                 onClick={() => setFilterTeacherOnly(true)}
                 className={`px-3 py-1.5 rounded font-label-technical text-xs transition-colors cursor-pointer ${
-                  filterTeacherOnly ? 'bg-surface text-primary font-bold shadow-xs' : 'text-secondary hover:text-on-surface'
+                  filterTeacherOnly ? 'bg-surface text-primary font-bold shadow-xs' : 'text-blue-800 hover:text-on-surface'
                 }`}
               >
                 Csak a sajátjaim
@@ -186,7 +186,7 @@ export function Main() {
             type="button"
             onClick={loadData}
             title="Lista frissítése"
-            className="p-2 bg-surface hover:bg-surface-container border border-outline-variant rounded text-secondary hover:text-primary transition-colors cursor-pointer flex items-center justify-center"
+            className="p-2 bg-surface hover:bg-surface-container border border-outline-variant rounded text-blue-800 hover:text-primary transition-colors cursor-pointer flex items-center justify-center"
           >
             <span className={`material-symbols-outlined text-[20px] ${loading ? 'animate-spin' : ''}`}>
               refresh
@@ -201,7 +201,7 @@ export function Main() {
           <span className="material-symbols-outlined text-4xl text-primary animate-spin mb-3">
             progress_activity
           </span>
-          <p className="font-body-base text-secondary">Események betöltése folyamatban...</p>
+          <p className="font-body-base text-blue-800">Események betöltése folyamatban...</p>
         </div>
       ) : errorMsg ? (
         <div className="bg-error-container text-on-error-container p-4 rounded text-center font-body-base border border-error">
@@ -217,13 +217,13 @@ export function Main() {
         </div>
       ) : filteredEvents.length === 0 ? (
         <div className="bg-surface border border-outline-variant rounded p-12 text-center">
-          <span className="material-symbols-outlined text-5xl text-secondary mb-3">
+          <span className="material-symbols-outlined text-5xl text-blue-800 mb-3">
             event_busy
           </span>
           <h3 className="font-title-md text-on-surface font-semibold mb-1">
             Nem található esemény
           </h3>
-          <p className="font-body-sm text-secondary max-w-sm mx-auto mb-4">
+          <p className="font-body-sm text-blue-800 max-w-sm mx-auto mb-4">
             {searchQuery
               ? 'A megadott keresési feltételeknek egyetlen esemény sem felelt meg.'
               : filterTeacherOnly

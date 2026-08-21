@@ -41,7 +41,7 @@ export function EsemenyCard({
     statusColor = "text-error border-error";
   } else if (isFinished) {
     statusBadge = "BEFEJEZŐDÖTT";
-    statusColor = "text-secondary border-outline-variant";
+    statusColor = "text-blue-800 border-outline-variant";
   }
 
   const handleRegister = async () => {
@@ -107,7 +107,7 @@ export function EsemenyCard({
       <div className="p-5 flex flex-col flex-grow">
         
         {/* Időpont és helyszín adatok */}
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2 text-secondary font-label-technical text-xs">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2 text-blue-800 font-label-technical text-xs">
           <div className="flex items-center gap-1">
             <span className="material-symbols-outlined text-[15px]">calendar_today</span>
             <span>{formattedDate}</span>
@@ -126,7 +126,7 @@ export function EsemenyCard({
         </h2>
 
         {/* Oktató neve & Létszámkorlát */}
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-3 text-secondary font-label-technical text-xs border-b border-outline-variant/50 pb-2">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-3 text-blue-800 font-label-technical text-xs border-b border-outline-variant/50 pb-2">
           {esemeny.teacher_name && (
             <div className="flex items-center gap-1">
               <span className="material-symbols-outlined text-[15px]">person</span>
@@ -169,7 +169,7 @@ export function EsemenyCard({
           {user?.role === 'student' && (
             <>
               {isFinished ? (
-                <button disabled className="w-full py-2 font-label-technical text-xs md:text-sm rounded flex items-center justify-center gap-2 bg-surface-container border border-outline-variant text-secondary opacity-60 cursor-not-allowed">
+                <button disabled className="w-full py-2 font-label-technical text-xs md:text-sm rounded flex items-center justify-center gap-2 bg-surface-container border border-outline-variant text-blue-800 opacity-60 cursor-not-allowed">
                   Az esemény lezárult
                 </button>
               ) : isRegistered ? (
